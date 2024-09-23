@@ -1,0 +1,36 @@
+def encrypt():
+    alphabetArr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+    shiftedAlphabetArr = []
+
+    textToEncrypt = input("What text would you like to encrypt: ").lower()
+    encryptedTextArr = []
+    
+    shiftKey = int(input("What shift key do you want (1-25): "))
+    updateRange = 26 - shiftKey
+
+    for i in range (updateRange):
+        shiftedAlphabetArr.append(alphabetArr[shiftKey])
+        shiftKey += 1
+    
+    shiftKey = 0
+    
+    for i in range(26 - updateRange):
+        shiftedAlphabetArr.append(alphabetArr[shiftKey])
+        shiftKey += 1
+    
+    shiftedAlphabet = "".join(shiftedAlphabetArr)
+
+    for letter in textToEncrypt:
+        if letter == " ":
+            encryptedTextArr.append(" ")
+        elif letter == ".":
+            encryptedTextArr.append(".")
+        else:
+            newIndex = alphabetArr.index(letter)
+            encryptedTextArr.append(shiftedAlphabet[newIndex])
+    
+    encryptedText = "".join(encryptedTextArr)
+    
+    print(encryptedText)
+
+encrypt()

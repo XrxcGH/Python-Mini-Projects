@@ -1,0 +1,54 @@
+def decrypt():
+    alphabetArr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+    alphabetPercentArr = []
+    totalCharsCount = 0
+    shiftedAlphabetArr = []
+    textToDecrypt = input("What text would you like to encrypt: ").lower()
+    textToAnalyze = input("What online text do you want to analyze: ").lower()
+    decryptedTextArr = []
+    shiftKey = -1
+    updateRange = 26 + shiftKey
+    countIndex = 0
+
+    for letter in textToAnalyze:
+        if letter in alphabetArr:
+            totalCharsCount += 1
+
+    print(totalCharsCount)
+
+    for letter in alphabetArr:
+        alphabetPercentArr.append((textToAnalyze.count(alphabetArr[countIndex]))/totalCharsCount)
+        countIndex += 1
+    
+    print(alphabetPercentArr)
+
+    
+
+    """
+    for i in range (updateRange):
+        shiftedAlphabetArr.append(alphabetArr[shiftKey])
+        shiftKey += 1
+    
+    shiftKey = 0
+    
+    for i in range(26 - updateRange):
+        shiftedAlphabetArr.append(alphabetArr[shiftKey])
+        shiftKey += 1
+    
+    shiftedAlphabet = "".join(shiftedAlphabetArr)
+
+    for letter in textToEncrypt:
+        if letter == " ":
+            encryptedTextArr.append(" ")
+        elif letter == ".":
+            encryptedTextArr.append(".")
+        else:
+            newIndex = alphabetArr.index(letter)
+            encryptedTextArr.append(shiftedAlphabet[newIndex])
+    
+    encryptedText = "".join(encryptedTextArr)
+    
+    print(encryptedText)
+    """
+
+decrypt()
