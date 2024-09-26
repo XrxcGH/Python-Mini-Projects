@@ -1,0 +1,18 @@
+def greedyChange():
+
+    givenAmount = int((float(input("How much money do you want in change: "))) * 100)
+    coinValues = [25, 10, 5, 1]
+    coinCounts = [0, 0, 0, 0]
+
+    for i in range(len(coinValues)):
+        givenAmountBool = True
+        while givenAmountBool == True:
+            if (givenAmount - coinValues[i]) >= 0:
+                givenAmount -= coinValues[i]
+                coinCounts[i] += 1
+            else:
+                givenAmountBool = False
+
+    print("You will get back", coinCounts[0], "quarters,", coinCounts[1], "dimes,", coinCounts[2], "nickels, and", coinCounts[3], "pennies. Thank you!")
+
+greedyChange()
