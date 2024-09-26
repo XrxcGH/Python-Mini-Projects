@@ -1,54 +1,84 @@
 def decrypt():
-    alphabetArr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-    alphabetPercentArr = []
-    totalCharsCount = 0
-    shiftedAlphabetArr = []
-    textToDecrypt = input("What text would you like to encrypt: ").lower()
+    textToDecrypt = input("What text would you like to decrypt: ").lower()
     textToAnalyze = input("What online text do you want to analyze: ").lower()
+    
+    alphabetArr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+    grammarArr = [".", "?", "!", ",", ":", ";", "-", "(", ")", "'", '"', " "]
     decryptedTextArr = []
+
     shiftKey = -1
     updateRange = 26 + shiftKey
-    countIndex = 0
+
+
+
+    analyzeCharsCount = 0
 
     for letter in textToAnalyze:
         if letter in alphabetArr:
-            totalCharsCount += 1
+            analyzeCharsCount += 1
 
-    print(totalCharsCount)
+    analyzePercentDict = {}
+    countIndex = 0
 
     for letter in alphabetArr:
-        alphabetPercentArr.append((textToAnalyze.count(alphabetArr[countIndex]))/totalCharsCount)
+        analyzePercentDict.update({alphabetArr[countIndex]: (textToAnalyze.count(alphabetArr[countIndex]))/analyzeCharsCount})
         countIndex += 1
     
-    print(alphabetPercentArr)
+    print(analyzePercentDict)
 
-    
+    analyzePercentSorted = dict(sorted(analyzePercentDict.items(), key=lambda item: item[1]))
 
-    """
-    for i in range (updateRange):
-        shiftedAlphabetArr.append(alphabetArr[shiftKey])
-        shiftKey += 1
-    
-    shiftKey = 0
-    
-    for i in range(26 - updateRange):
-        shiftedAlphabetArr.append(alphabetArr[shiftKey])
-        shiftKey += 1
-    
-    shiftedAlphabet = "".join(shiftedAlphabetArr)
+    print(analyzePercentSorted)
 
-    for letter in textToEncrypt:
-        if letter == " ":
-            encryptedTextArr.append(" ")
-        elif letter == ".":
-            encryptedTextArr.append(".")
+
+
+    decryptCharsCount = 0
+
+    for letter in textToDecrypt:
+        if letter in alphabetArr:
+            decryptCharsCount += 1
+    
+    decryptPercentDict = {}
+    countIndex = 0
+
+    for letter in alphabetArr:
+        decryptPercentDict.update({alphabetArr[countIndex]: (textToDecrypt.count(alphabetArr[countIndex]))/decryptCharsCount})
+        countIndex += 1
+
+    print(decryptPercentDict)
+
+    decryptPercentSorted = dict(sorted(decryptPercentDict.items(), key=lambda item: item[1]))
+
+    print(decryptPercentSorted)
+
+
+
+    analyzeLastKey = list(analyzePercentSorted)[-1]
+    analyzeLastValue = list(analyzePercentSorted.values())[-1]
+
+    decryptLastKey = list(decryptPercentSorted)[-1]
+    decryptLastValue = list(decryptPercentSorted.values())[-1]
+
+    lastValueDifference = abs(analyzeLastValue - decryptLastValue)
+
+    if lastValueDifference <= 0.1:
+        lastKeyDifference = alphabetArr.index(analyzeLastKey) - alphabetArr.index(decryptLastKey)
+
+    print(lastValueDifference)
+    print(lastKeyDifference)
+
+    for char in textToDecrypt:
+        if char in grammarArr:
+            newIndex = grammarArr.index(char)
+            decryptedTextArr.append(grammarArr[newIndex])
         else:
-            newIndex = alphabetArr.index(letter)
-            encryptedTextArr.append(shiftedAlphabet[newIndex])
+            newIndex = alphabetArr.index(char)
+            decryptedTextArr.append(alphabetArr[newIndex + lastKeyDifference])
     
-    encryptedText = "".join(encryptedTextArr)
-    
-    print(encryptedText)
-    """
+    decryptedText = "".join(decryptedTextArr)
+
+    print(decryptedText)
+
+
 
 decrypt()
