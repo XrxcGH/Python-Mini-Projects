@@ -1,5 +1,6 @@
 def encrypt():
     alphabetArr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+    grammarArr = [".", "?", "!", ",", ":", ";", "-", "(", ")", "'", '"', " "]
     shiftedAlphabetArr = []
 
     textToEncrypt = input("What text would you like to encrypt: ").lower()
@@ -20,13 +21,12 @@ def encrypt():
     
     shiftedAlphabet = "".join(shiftedAlphabetArr)
 
-    for letter in textToEncrypt:
-        if letter == " ":
-            encryptedTextArr.append(" ")
-        elif letter == ".":
-            encryptedTextArr.append(".")
+    for char in textToEncrypt:
+        if char in grammarArr:
+            newIndex = grammarArr.index(char)
+            encryptedTextArr.append(grammarArr[newIndex])
         else:
-            newIndex = alphabetArr.index(letter)
+            newIndex = alphabetArr.index(char)
             encryptedTextArr.append(shiftedAlphabet[newIndex])
     
     encryptedText = "".join(encryptedTextArr)
